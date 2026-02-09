@@ -1,0 +1,5 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": { "no-console": "warn" },
+  "overrides": [{ "files": ["lib/logger/**/*.ts"], "rules": { "no-console": "off" } }]
+}

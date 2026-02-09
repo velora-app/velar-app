@@ -1,0 +1,92 @@
+{
+  "name": "velora",
+  "version": "1.0.0",
+  "description": "Velora — a modern database management tool",
+  "author": "Velora",
+  "main": "dist-electron/electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "electron": "npm run build:electron && electron .",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && npm run build:electron && electron .\"",
+    "electron:build": "next build && npm run build:electron && electron-builder",
+    "build:mac": "next build && electron-builder --mac",
+    "build:win": "next build && electron-builder --win",
+    "build:linux": "next build && electron-builder --linux",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "pg": "^8.11.3",
+    "mysql2": "^3.6.5",
+    "better-sqlite3": "^9.2.2",
+    "mongodb": "^6.2.0",
+    "redis": "^4.6.10",
+    "monaco-editor": "^0.44.0",
+    "@monaco-editor/react": "^4.6.0",
+    "lucide-react": "^0.292.0",
+    "tailwindcss": "^3.3.5",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "clsx": "^2.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-config-next": "^14.0.0",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0",
+    "@types/better-sqlite3": "^7.6.8",
+    "vitest": "^2.0.0",
+    "prettier": "^3.2.0"
+  },
+  "build": {
+    "appId": "com.velora.app",
+    "productName": "Velora",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "dist-electron/**/*",
+      "node_modules/**/*",
+      "assets/**/*",
+      "public/assets/**/*",
+      "package.json",
+      "!node_modules/**/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!node_modules/**/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!node_modules/**/*.d.ts",
+      "!node_modules/**/*.map"
+    ],
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": "dmg",
+      "icon": "assets/main-logo-icon.svg"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/main-logo-icon.svg"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/main-logo-icon.svg"
+    }
+  }
+}
